@@ -3,6 +3,13 @@ import React from "react";
 const Status = () => {
   return (
     <div className="bg-gradient-to-br from-[#632EE3] to-[#9F62F2] p-10 lg:p-20 text-center space-y-10">
+
+
+
+
+
+
+      
       <h2 className="text-white font-bold text-4xl lg:text-5xl">
         Trusted by Millions, Built for You
       </h2>

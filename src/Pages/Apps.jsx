@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import useApps from "../Hooks/useApps";
 import AppsCard from "../components/AppsCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Apps = () => {
-  const { apps } = useApps();
+  const { apps, loading } = useApps();
+  const [search, setSearch] = useState("");
+  const term = search.trim().toLocaleLowerCase();
+  const searchedApps = term
+    ? apps.filter((app) => app.title.toLocaleLowerCase().includes(term))
+    : apps;
   return (
     <div className="px-6 md:px-10 lg:px-20 py-10 lg:py-20 space-y-4 md:space-y-10">
       <div className="space-y-4">
@@ -15,7 +21,9 @@ const Apps = () => {
         </p>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center space-y-6">
-        <h2 className="text-xl md:text-2xl text-[#001931] font-semibold">({apps.length})Apps Found</h2>
+        <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
+          ({searchedApps.length})Apps Found
+        </h2>
         <label className="input">
           <svg
             className="h-[1em] opacity-50"
@@ -33,14 +41,24 @@ const Apps = () => {
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search" />
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+            required
+            placeholder="Search"
+          />
         </label>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {apps.map((app) => (
-          <AppsCard key={app.id} app={app}></AppsCard>
-        ))}
-      </div>
+      {loading ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {searchedApps.map((app) => (
+            <AppsCard key={app.id} app={app}></AppsCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
