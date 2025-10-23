@@ -7,6 +7,16 @@ import reviewImg from "../assets/icon-review.png";
 import LoadingSpinner from "./LoadingSpinner";
 import { loadInstallation, updateList } from "../utils/localStorage";
 import { toast, ToastContainer } from "react-toastify";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const AppDetails = () => {
   const { id } = useParams();
@@ -19,8 +29,16 @@ const AppDetails = () => {
     setInstalled(installed);
   }, [id]);
   if (loading) return <LoadingSpinner></LoadingSpinner>;
-  const { image, title, companyName, downloads, ratingAvg, reviews, size } =
-    app;
+  const {
+    ratings,
+    image,
+    title,
+    companyName,
+    downloads,
+    ratingAvg,
+    reviews,
+    size,
+  } = app;
   return (
     <div className="p-6 md:p-10 lg:p-20">
       <ToastContainer></ToastContainer>
@@ -90,6 +108,36 @@ const AppDetails = () => {
               Install Now ({size} MB)
             </button>
           )}
+        </div>
+      </div>
+      <div className="w-full h-[300px] md:h-[500px] my-10">
+        <div className="flex mb-2 flex-col">
+          <div className="divider m-0"></div>
+        </div>
+        <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
+          Ratings
+        </h2>
+        <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+          <BarChart
+            layout="vertical"
+            data={[...ratings].reverse()}
+            margin={{
+              top: 5,
+              right: 0,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" />
+            <YAxis dataKey="name" type="category" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#FF6451" barSize={40} />
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="flex mb-2 flex-col">
+          <div className="divider m-0"></div>
         </div>
       </div>
     </div>
