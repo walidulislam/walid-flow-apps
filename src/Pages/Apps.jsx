@@ -7,6 +7,7 @@ import appErrorImg from "../assets/App-Error.png";
 const Apps = () => {
   const { apps, loading } = useApps();
   const [search, setSearch] = useState("");
+  const [searching, setSearching] = useState(false);
   const term = search.trim().toLocaleLowerCase();
   const searchedApps = term
     ? apps.filter((app) => app.title.toLocaleLowerCase().includes(term))
@@ -45,14 +46,22 @@ const Apps = () => {
           </svg>
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearching(true);
+              setSearch(e.target.value);
+              setTimeout(() => {
+                setSearching(false);
+              }, 100);
+            }}
             type="search"
             required
             placeholder="Search"
           />
         </label>
       </div>
-      {searchedApps.length === 0 ? (
+      {loading || searching ? (
+        <LoadingSpinner></LoadingSpinner>
+      ) : searchedApps.length === 0 ? (
         <div>
           <div className="flex flex-col text-center items-center justify-center h-screen p-10 md:p-20 space-y-4">
             <img src={appErrorImg} />
