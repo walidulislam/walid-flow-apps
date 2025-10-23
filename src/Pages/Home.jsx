@@ -9,6 +9,7 @@ import LoadingSpinner from "./LoadingSpinner";
 const Home = () => {
   const { apps, loading } = useApps();
   const trendingApps = apps.slice(0, 8);
+   if (loading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div>
       <Banner></Banner>

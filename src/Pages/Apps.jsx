@@ -10,6 +10,7 @@ const Apps = () => {
   const searchedApps = term
     ? apps.filter((app) => app.title.toLocaleLowerCase().includes(term))
     : apps;
+     if (loading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div className="px-6 md:px-10 lg:px-20 py-10 lg:py-20 space-y-4 md:space-y-10">
       <div className="space-y-4">
