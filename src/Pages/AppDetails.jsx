@@ -38,6 +38,7 @@ const AppDetails = () => {
     ratingAvg,
     reviews,
     size,
+    description,
   } = app;
   return (
     <div className="p-6 md:p-10 lg:p-20">
@@ -110,7 +111,7 @@ const AppDetails = () => {
           )}
         </div>
       </div>
-      <div className="w-full h-[300px] md:h-[500px] my-10">
+      <div className="w-full h-[300px] md:h-[500px] py-10">
         <div className="flex mb-2 flex-col">
           <div className="divider m-0"></div>
         </div>
@@ -139,6 +140,12 @@ const AppDetails = () => {
         <div className="flex mb-2 flex-col">
           <div className="divider m-0"></div>
         </div>
+      </div>
+      <div className="pt-10">
+        <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
+          Description
+        </h2>
+        <p className="text-md font-normal  opacity-80 text-[#001931]">{description}</p>
       </div>
     </div>
   );
