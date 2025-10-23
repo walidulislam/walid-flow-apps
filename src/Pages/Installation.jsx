@@ -11,10 +11,19 @@ import LoadingSpinner from "./LoadingSpinner";
 const Installation = () => {
   const [installation, setInstallation] = useState(() => loadInstallation());
   const { loading } = useApps();
-
+  const [sortDownload, setSortDownload] = useState("none");
   const handelRemove = (id) => {
     removeFromInstallation(id);
     setInstallation((prev) => prev.filter((p) => p.id !== id));
+  };
+  const sortedApps = () => {
+    if (sortDownload === "price-desc") {
+      return [...installation].sort((a, b) => b.downloads - a.downloads);
+    } else if (sortDownload === "price-asc") {
+      return [...installation].sort((a, b) => a.downloads - b.downloads);
+    } else {
+      return installation;
+    }
   };
   if (loading) return <LoadingSpinner></LoadingSpinner>;
   return (
@@ -33,25 +42,18 @@ const Installation = () => {
           <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
             ({installation.length})Apps Found
           </h2>
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn m-1">
-              Click ⬇️
-            </div>
-            <ul
-              tabIndex="-1"
-              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
-            >
-              <li>
-                <a>High-Low</a>
-              </li>
-              <li>
-                <a>Low-High</a>
-              </li>
-            </ul>
-          </div>
+          <select
+            value={sortDownload}
+            onChange={(e) => setSortDownload(e.target.value)}
+            className="select select-bordered w-52"
+          >
+            <option value="none">Sort by Downloads ⬇️</option>
+            <option value="price-desc">High-Low</option>
+            <option value="price-asc">Low-High</option>
+          </select>
         </div>
         <div className="space-y-3">
-          {installation.map((a) => (
+          {sortedApps().map((a) => (
             <div
               key={a.id}
               className="flex justify-between items-center bg-base-100 w-full shadow-lg rounded-xl hover:scale-105 transition ease-in-out p-4"
