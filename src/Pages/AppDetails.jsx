@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useApps from "../Hooks/useApps";
+import appErrorImg from "../assets/App-Error.png";
 import downImg from "../assets/icon-downloads.png";
 import ratingImg from "../assets/icon-ratings.png";
 import reviewImg from "../assets/icon-review.png";
@@ -21,14 +22,39 @@ import {
 const AppDetails = () => {
   const { id } = useParams();
   const { apps, loading } = useApps();
+  const navigate = useNavigate();
   const [installed, setInstalled] = useState(false);
   const app = apps.find((a) => a.id === Number(id));
   useEffect(() => {
+    if (!app) return;
     const installedApp = loadInstallation();
     const installed = installedApp.some((a) => a.id === Number(id));
     setInstalled(installed);
-  }, [id]);
+  }, [id, app]);
   if (loading) return <LoadingSpinner></LoadingSpinner>;
+
+  if (!app) {
+    return (
+      <div>
+        <div className="flex flex-col text-center items-center justify-center h-screen p-10 md:p-20 space-y-4">
+          <img src={appErrorImg} />
+          <h2 className="font-semibold text-2xl md:text-5xl text-[#001931]">
+            OPPS!! APP NOT FOUND
+          </h2>
+          <p className="text-sm md:text-xl text-[#627382]">
+            The App you are requesting is not found on our system. please try
+            another apps
+          </p>
+          <button
+            onClick={() => navigate(-1)}
+            className="btn  bg-gradient-to-br from-[#632EE3] to-[#9F62F2] hover:from-[#ec612f] hover:to-[#f19736] text-white"
+          >
+            Go Back!
+          </button>
+        </div>
+      </div>
+    );
+  }
   const {
     ratings,
     image,
@@ -145,7 +171,9 @@ const AppDetails = () => {
         <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
           Description
         </h2>
-        <p className="text-md font-normal  opacity-80 text-[#001931]">{description}</p>
+        <p className="text-md font-normal  opacity-80 text-[#001931]">
+          {description}
+        </p>
       </div>
     </div>
   );

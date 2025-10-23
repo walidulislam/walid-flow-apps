@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useApps from "../Hooks/useApps";
 import AppsCard from "../components/AppsCard";
 import LoadingSpinner from "./LoadingSpinner";
+import appErrorImg from "../assets/App-Error.png";
 
 const Apps = () => {
   const { apps, loading } = useApps();
@@ -10,7 +11,7 @@ const Apps = () => {
   const searchedApps = term
     ? apps.filter((app) => app.title.toLocaleLowerCase().includes(term))
     : apps;
-     if (loading) return <LoadingSpinner></LoadingSpinner>;
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <div className="px-6 md:px-10 lg:px-20 py-10 lg:py-20 space-y-4 md:space-y-10">
       <div className="space-y-4">
@@ -51,8 +52,19 @@ const Apps = () => {
           />
         </label>
       </div>
-      {loading ? (
-        <LoadingSpinner></LoadingSpinner>
+      {searchedApps.length === 0 ? (
+        <div>
+          <div className="flex flex-col text-center items-center justify-center h-screen p-10 md:p-20 space-y-4">
+            <img src={appErrorImg} />
+            <h2 className="font-semibold text-2xl md:text-5xl text-[#001931]">
+              OPPS!! APP NOT FOUND
+            </h2>
+            <p className="text-sm md:text-xl text-[#627382]">
+              The App you are requesting is not found on our system. please try
+              another apps
+            </p>
+          </div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {searchedApps.map((app) => (
