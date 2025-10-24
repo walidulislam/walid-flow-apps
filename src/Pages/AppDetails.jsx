@@ -137,7 +137,7 @@ const AppDetails = () => {
           )}
         </div>
       </div>
-      <div className="w-full h-[300px] md:h-[500px] py-10">
+      <div className="w-full  md:h-[500px] py-10">
         <div className="flex mb-2 flex-col">
           <div className="divider m-0"></div>
         </div>
@@ -167,7 +167,7 @@ const AppDetails = () => {
           <div className="divider m-0"></div>
         </div>
       </div>
-      <div className="pt-10">
+      <div className="md:pt-10">
         <h2 className="text-xl md:text-2x text-[#001931] font-semibold">
           Description
         </h2>

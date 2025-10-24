@@ -51,7 +51,7 @@ const Apps = () => {
               setSearch(e.target.value);
               setTimeout(() => {
                 setSearching(false);
-              }, 100);
+              }, 200);
             }}
             type="search"
             required

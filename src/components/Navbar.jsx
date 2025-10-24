@@ -41,22 +41,47 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="flex items-center gap-2">
-          <img className="max-w-10" src={logoImg} alt="Logo" />
+          <img
+            className="max-w-10 transition-transform duration-700 hover:rotate-60"
+            src={logoImg}
+            alt="Logo"
+          />
           <h2 className="bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-transparent bg-clip-text text-lg font-bold hidden md:block">
             WalidFlow.IO
           </h2>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal space-x-1">
           <li>
-            <NavLink to="/">Home</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 border-1 border-blue-200" : ""
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/apps">Apps</NavLink>
+            <NavLink
+              to="/apps"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 border-1 border-blue-200" : ""
+              }
+            >
+              Apps
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/installation">Installation</NavLink>
+            <NavLink
+              to="/installation"
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 border-1 border-blue-200" : ""
+              }
+            >
+              Installation
+            </NavLink>
           </li>
         </ul>
       </div>

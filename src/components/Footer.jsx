@@ -1,5 +1,5 @@
 import React from "react";
-
+import logoImg from "../assets/logo.png";
 const Footer = () => {
   return (
     <div>
@@ -56,6 +56,17 @@ const Footer = () => {
             </a>
           </div>
         </nav>
+      </footer>
+      <footer className="footer sm:footer-horizontal bg-[#001931] text-white items-center justify-center px-10 lg:px-20 py-4">
+        <aside className="grid-flow-col items-center">
+          <img className="w-10 h-10 animate-spin mr-2" src={logoImg} />
+          <p className="flex items-center">
+            Copyright © {new Date().getFullYear()} - All right reserved
+            <h2 className="ml-2 bg-gradient-to-br from-[#e3d12e] to-[#7cb7ee] text-transparent bg-clip-text text-lg font-bold hidden md:block">
+              WalidFlow.IO
+            </h2>
+          </p>
+        </aside>
       </footer>
     </div>
   );
